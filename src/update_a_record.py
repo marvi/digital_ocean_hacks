@@ -3,6 +3,8 @@
 # Updates Digital Ocean DNS with hostname and IP for this host. It removes any
 # A records previously added for this hostname.
 #
+# Author: Markus Härnvi <markus@harnvi.net>
+#
 import requests
 
 base_url = "https://api.digitalocean.com/v2/domains/[INSERT DOMAIN HERE]/records/"
@@ -15,7 +17,7 @@ def main():
 
 def delete_a_records(r):
     domains = r.json()['domain_records']
-    a_records = [x for x in domains if x['name'] == "[INSERT HOSTBAME HERE]"]
+    a_records = [x for x in domains if x['name'] == "[INSERT HOSTNAME HERE]"]
     for record in a_records:
         record_id = record['id']
         d = requests.delete(base_url + str(record_id), headers=headers)
